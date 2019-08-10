@@ -1,0 +1,48 @@
+﻿<Window x:Class="Nursery.View.AdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico"
+        
+        Title="AdminView" Height="600" Width="1000">
+    <Grid Style="{StaticResource defaultGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.55*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Style="{StaticResource menuGrid}">
+            <StackPanel  >
+                <Label Content="У вас доступ уровня администратор" Style="{StaticResource defaultLabel}" HorizontalAlignment="Center" Padding="0,10"/>
+                <Label Cursor="Hand" Style="{StaticResource labelLink}" HorizontalAlignment="Center"  Content="Редактировать профиль">
+                    <Label.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GoToEditter}"/>
+                    </Label.InputBindings>
+                </Label>
+                <Button Margin="5,5" Command="{Binding UsersFrame}" Content="Пользователи" Style="{StaticResource defaultButton}"/>
+                <Button Margin="5,5" Command="{Binding PetsFrame}" Content="Животные" Style="{StaticResource defaultButton}"/>
+                <Button Margin="5,5" Command="{Binding BuysFrame}" Content="Заказ товаров" Style="{StaticResource defaultButton}"/>
+
+            </StackPanel>
+        </Grid>
+        
+        <Frame Grid.Row="1"
+               Content="{Binding CurrentPageHelper}"
+               NavigationUIVisibility="Hidden"
+               Opacity="{Binding FrameOpacity}"/>
+        <Frame Grid.Column="1"
+               Content="{Binding CurrentPage}"
+               NavigationUIVisibility="Hidden"
+               Opacity="{Binding FrameOpacity}"
+               Grid.RowSpan="2"/>
+    </Grid>
+</Window>

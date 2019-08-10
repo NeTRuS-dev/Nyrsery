@@ -1,0 +1,44 @@
+﻿<Page x:Class="Nursery.View.ClientFrames.MyPets"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Nursery.View.ClientFrames"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MyPets">
+
+    <Grid>
+        <Button Margin="10" Grid.Column="1" MinWidth="150" Height="30" Content="Выйти из профиля" Command="{Binding BackToLogin}" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource defaultButton}"/>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Мои питомцы" Style="{StaticResource headerLabel}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding MyPets,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedMyPet}"  Style="{StaticResource defaultDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Имя" Binding="{Binding Name}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" MinWidth="90" Header="Род"  Binding="{Binding Type.PetType}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" MinWidth="110" Header="Пол"  Binding="{Binding Male.Male}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Возраст"  Binding="{Binding Age}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Цена"  Binding="{Binding Price}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" MinWidth="210" Header="Последяя дата кормления"  Binding="{Binding LastTimeOfEatingStr}" ElementStyle="{StaticResource cellDataGrid}"/>
+                    <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Привит" Binding="{Binding GetVactcina}" ElementStyle="{StaticResource cellDataGrid}"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Отдать в питомник"
+                            Command="{Binding GiveAwayThePet}"/>
+                        
+
+                    </ContextMenu>
+
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+        
+
+    </Grid>
+</Page>

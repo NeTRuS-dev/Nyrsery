@@ -1,0 +1,106 @@
+﻿<Window x:Class="Nursery.View.ProfileRedactor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        xmlns:model="clr-namespace:Nursery.Model"
+        mc:Ignorable="d"
+        Title="Редактирование профиля" Height="450" Width="800"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico">
+
+    <Window.Resources>
+        <model:ConverterInput x:Key="Converter"/>
+    </Window.Resources>
+    
+    <ScrollViewer  VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3">
+
+        <Grid Style="{StaticResource defaultGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="1" >
+                <Label  Content="Изменить профиль" Style="{StaticResource headerLabel}" HorizontalAlignment="Center"/>
+                <StackPanel Style="{StaticResource verticalStackPanel}" HorizontalAlignment="Center" Margin="0,0,30,0" MaxWidth="250" >
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Имя:" />
+                        <TextBox Style="{StaticResource defaultTextBox}" Text="{Binding UserForEdit.FirstName}" x:Name="FirstName" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Фамилия:"/>
+                        <TextBox Style="{StaticResource defaultTextBox}"  Text="{Binding UserForEdit.SecondName}" x:Name="SecondName"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Отчество:"/>
+                        <TextBox Style="{StaticResource defaultTextBox}" Text="{Binding UserForEdit.LastName}" x:Name="LastName"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Пол:" />
+                        <ComboBox ItemsSource="{Binding Males}"
+                          SelectedItem="{Binding SettedMale}"
+                           MinWidth="81">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Male}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <!--<StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Должность:"/>
+                        <ComboBox ItemsSource="{Binding Statuses}"
+                          SelectedItem="{Binding StartItem}"
+                           MinWidth="81">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>-->
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Дата рождения:"/>
+                        <DatePicker SelectedDate="{Binding DateOfBorn}" DisplayDateStart="{Binding StartTime}" DisplayDateEnd="{Binding EndTime}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Адрес:"/>
+                        <TextBox Style="{StaticResource defaultTextBox}" Text="{Binding UserForEdit.Addres}" x:Name="Address"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Номер телефона:"/>
+                        <TextBox Style="{StaticResource defaultTextBox}" x:Name="PhoneNumber" Text="{Binding Numbers, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    
+                    
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Center">
+
+                    <Label Style="{StaticResource labelLink}" Padding="40,10" VerticalContentAlignment="Center" Cursor="Hand" Content="Отмена" HorizontalAlignment="Left">
+                        <Label.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GoBack}"/>
+                        </Label.InputBindings>
+                    </Label>
+                    <Button  Style="{StaticResource defaultButton}"  MinWidth="180" Command="{Binding EditProfil}" Content="Применить изменения" HorizontalAlignment="Right">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource Converter}">
+                                <Binding ElementName="FirstName" Path="Text"/>
+                                <Binding ElementName="SecondName" Path="Text"/>
+                                <Binding ElementName="LastName" Path="Text"/>
+                                <Binding ElementName="Address" Path="Text"/>
+                                <Binding ElementName="PhoneNumber" Path="Text"/>
+
+                            </MultiBinding>
+
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Window>

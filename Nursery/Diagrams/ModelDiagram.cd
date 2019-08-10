@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Nursery.Model.User" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>JAAQgMiEEAAAASBAAEAiQAACABAAEgADAAAQgAoAEAk=</HashCode>
+      <FileName>Model\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.TypeOfPet" Collapsed="true">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TypeOfPet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.StatusOfPeople" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Statuses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.PetExtender" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Model\PetExtender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.Pet" Collapsed="true">
+    <Position X="4" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAIIgIABAwQAAgCECEACIIQAAAAAAAAAAQAAAAIAAAE=</HashCode>
+      <FileName>Model\Pet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.Males" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Model\Males.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nursery.Model.Log" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAEAAAAAACAAAAAAAAAAAAQAAAAEAAAAA=</HashCode>
+      <FileName>Model\Logs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Nursery.Model.LogType" Collapsed="true">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEABAAAAAAAAQAAAADQQCAIAgADAIAACAAAMAAAUAQ=</HashCode>
+      <FileName>Model\LogsEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Nursery.Model.MaleEnum" Collapsed="true">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Model\MalesEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Nursery.Model.StatusEnum" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Model\StatusesEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Nursery.Model.TypesOfPet" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAIAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TypeOfPetEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,58 @@
+﻿<Window x:Class="Nursery.View.ClientView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico"
+
+        Title="ClientView" Height="600" Width="1000">
+    <Grid Style="{StaticResource defaultGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.4*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Style="{StaticResource menuGrid}">
+            <StackPanel VerticalAlignment="Center">
+                <Label Content="Вы клиент фирмы ООО 'Ми-Ми-Ми'" Style="{StaticResource defaultLabel}" HorizontalAlignment="Center" />
+                <Label Cursor="Hand" Style="{StaticResource labelLink}" HorizontalAlignment="Center"  Content="Редактировать профиль">
+                    <Label.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GoToEditter}"/>
+                    </Label.InputBindings>
+                </Label>
+                <Label Cursor="Hand" Style="{StaticResource labelLink}"  HorizontalAlignment="Center"  Content="Устроиться в питомник">
+                    <Label.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GetaJob}"/>
+                    </Label.InputBindings>
+                </Label>
+
+                <StackPanel Style="{StaticResource verticalStackPanel}">
+                    <Button Content="Питомцы" Command="{Binding PetsFrame}" Style="{StaticResource defaultButton}" Padding="35,0" Margin="0,7" Width="150"/>
+                    <Button Content="Мои питомцы" Command="{Binding MyPetsFrame}" Style="{StaticResource defaultButton}" Padding="10,0" Margin="0,7"/>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Frame Grid.Column="1"
+               Grid.RowSpan="2"
+               Content="{Binding CurrentPage}"
+               NavigationUIVisibility="Hidden"
+               Opacity="{Binding FrameOpacity}"
+               Grid.Row="0"/>
+        <Frame Grid.Column="0"
+               
+               Content="{Binding CurrentPageHelper}"
+               NavigationUIVisibility="Hidden"
+               Opacity="{Binding FrameOpacity}"
+               Grid.Row="1"/>
+        
+    </Grid>
+</Window>

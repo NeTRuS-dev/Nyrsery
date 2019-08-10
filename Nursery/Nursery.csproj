@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0FC1368-22DC-45FD-A11C-3B19436C451A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Nursery</RootNamespace>
+    <AssemblyName>Nursery</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Features\IMultiSelectCollectionView.cs" />
+    <Compile Include="Features\MultiSelect.cs" />
+    <Compile Include="Features\MultiSelectCollectionView.cs" />
+    <Compile Include="Model\Logs.cs" />
+    <Compile Include="Model\LogsEnum.cs" />
+    <Compile Include="Model\MalesEnum.cs" />
+    <Compile Include="Model\PetExtender.cs" />
+    <Compile Include="Model\StatusesEnum.cs" />
+    <Compile Include="Model\TypeOfPet.cs" />
+    <Compile Include="Features\ConverterInput.cs" />
+    <Compile Include="Model\Males.cs" />
+    <Compile Include="Features\Passhelper.cs" />
+    <Compile Include="Model\Pet.cs" />
+    <Compile Include="Model\Statuses.cs" />
+    <Compile Include="Model\TypeOfPetEnum.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
+    <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\ClientViewModel.cs" />
+    <Compile Include="Features\NewForm.cs" />
+    <Compile Include="ViewModel\PetRedactorViewModel.cs" />
+    <Compile Include="ViewModel\ProfileEdittorViewModel.cs" />
+    <Compile Include="ViewModel\RegistationViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\WorkerViewModel.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\BuysPanel.xaml.cs">
+      <DependentUpon>BuysPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\BuysHelper.xaml.cs">
+      <DependentUpon>BuysHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\ClientsHelper.xaml.cs">
+      <DependentUpon>ClientsHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\ClientsTab.xaml.cs">
+      <DependentUpon>ClientsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\LogsHelper.xaml.cs">
+      <DependentUpon>LogsHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\LogsTab.xaml.cs">
+      <DependentUpon>LogsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\PetsHelper.xaml.cs">
+      <DependentUpon>PetsHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\UsersHelper.xaml.cs">
+      <DependentUpon>UsersHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\Helpers\UsersTab.xaml.cs">
+      <DependentUpon>UsersTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\PetsControlPanel.xaml.cs">
+      <DependentUpon>PetsControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminFrames\UsersControlPanel.xaml.cs">
+      <DependentUpon>UsersControlPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientFrames\AllPets.xaml.cs">
+      <DependentUpon>AllPets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientFrames\Helpers\AllPetsHelper.xaml.cs">
+      <DependentUpon>AllPetsHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientFrames\Helpers\MyPetsHelper.xaml.cs">
+      <DependentUpon>MyPetsHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientFrames\MyPets.xaml.cs">
+      <DependentUpon>MyPets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientView.xaml.cs">
+      <DependentUpon>ClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PasswordRecovery\PasswordRecoveryStage1.xaml.cs">
+      <DependentUpon>PasswordRecoveryStage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PasswordRecovery\PasswordRecoveryStage2.xaml.cs">
+      <DependentUpon>PasswordRecoveryStage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PasswordRecovery\PasswordRecoveryStage3.xaml.cs">
+      <DependentUpon>PasswordRecoveryStage3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PetRedactor.xaml.cs">
+      <DependentUpon>PetRedactor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PetRegistration.xaml.cs">
+      <DependentUpon>PetRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileRedactor.xaml.cs">
+      <DependentUpon>ProfileRedactor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkerView.xaml.cs">
+      <DependentUpon>WorkerView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Styles\buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Grids.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\stackpanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\texts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\BuysPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\BuysHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\ClientsHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\ClientsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\LogsHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\LogsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\PetsHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\UsersHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\Helpers\UsersTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\PetsControlPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminFrames\UsersControlPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientFrames\AllPets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientFrames\Helpers\AllPetsHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientFrames\Helpers\MyPetsHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientFrames\MyPets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Features\RealiseCommand.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\PasswordRecovery\PasswordRecoveryStage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PasswordRecovery\PasswordRecoveryStage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PasswordRecovery\PasswordRecoveryStage3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PetRedactor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PetRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileRedactor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Diagrams\FeaturesDiagram.cd" />
+    <None Include="Diagrams\ModelDiagram.cd" />
+    <None Include="Diagrams\ViewDiagram.cd" />
+    <None Include="Diagrams\VMDiagram.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\About.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\foto-pixabay_rect_c02de7280ce0901a6edddc8a9016e61a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\velichestvo.jpg" />
+    <Resource Include="Common\redcat.jpg" />
+    <Resource Include="Resources\pic_0d60b6f25e0b4801058e150e23c67b85.jpg" />
+    <Resource Include="Resources\vk-dog-1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\masscats.jpg" />
+    <Resource Include="Common\pic_0d60b6f25e0b4801058e150e23c67b85.jpg" />
+    <Resource Include="Common\fv3Ll7z7y_w.jpg" />
+    <Resource Include="Common\3a92da2427dffb0f1e17cbb1e84e69b2_L.jpg" />
+    <Resource Include="Common\klishki-dla-kotov-8.jpg" />
+    <Resource Include="Common\lapka.png" />
+    <Content Include="Common\masscats.jpg" />
+    <Resource Include="Common\vk-dog-1.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

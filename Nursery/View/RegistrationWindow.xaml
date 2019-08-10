@@ -1,0 +1,176 @@
+﻿<Window x:Class="Nursery.View.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        xmlns:viewmodel="clr-namespace:Nursery.ViewModel"
+        xmlns:model="clr-namespace:Nursery.Model"
+        
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico"
+
+        Title="Питомник Ми-Ми-Ми" Height="600" Width="1000">
+
+
+    <Window.Resources>
+        <model:ConverterInput x:Key="Converter"/>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding LoginButton}" Key="Return">
+            <KeyBinding.CommandParameter>
+                <MultiBinding Converter="{StaticResource Converter}">
+                    <Binding ElementName="FirstName" Path="Text"/>
+                    <Binding ElementName="SecondName" Path="Text"/>
+                    <Binding ElementName="LastName" Path="Text"/>
+                    <Binding ElementName="Address" Path="Text"/>
+                    <Binding ElementName="PhoneNumber" Path="Text"/>
+                    <Binding ElementName="Login" Path="Text"/>
+                </MultiBinding>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+    </Window.InputBindings>
+
+        <Grid Style="{StaticResource defaultGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Имя:" />
+                    <TextBox Style="{StaticResource defaultTextBox}" x:Name="FirstName" />
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Фамилия:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}" x:Name="SecondName"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Отчество:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}" x:Name="LastName"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Пол:" />
+                    <ComboBox ItemsSource="{Binding Males}"
+                          SelectedItem="{Binding SettedMale}"
+                           MinWidth="81">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Male}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <!--<StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                        <Label Content="Должность:"/>
+                        <ComboBox ItemsSource="{Binding Statuses}"
+                          SelectedItem="{Binding StartItem}"
+                           MinWidth="81">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>-->
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Дата рождения:"/>
+                    <DatePicker SelectedDate="{Binding DateOfBorn}" DisplayDateStart="{Binding StartTime}" DisplayDateEnd="{Binding EndTime}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Адрес:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}"  x:Name="Address"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Номер телефона:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}"  x:Name="PhoneNumber" Text="{Binding Numbers, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+            <Label HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Content="Регистрация" Style="{StaticResource headerLabel}"/>
+        <Grid  Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" MaxWidth="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+
+                <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Придумайте логин:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}" x:Name="Login"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}" Margin="0,10,0,0" HorizontalAlignment="Right">
+                    <Label Content="Придумайте пароль:"/>
+                    <PasswordBox model:PasswordHelper.Attach="True" model:PasswordHelper.Password="{Binding Pass, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{Binding PassBorder}" 
+                Style="{StaticResource defaultPasswordBox}"/>
+
+                </StackPanel>
+                <TextBlock Text="{Binding BedPasswordText,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Right" />
+                <StackPanel Style="{StaticResource baseStackPanel}" Margin="0,2,0,10" HorizontalAlignment="Right">
+                    <Label Content="Повторите пароль:"/>
+                    <PasswordBox model:PasswordHelper.Attach="True" model:PasswordHelper.Password="{Binding Passrep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{Binding PassBorder}"
+                Style="{StaticResource defaultPasswordBox}"/>
+
+                </StackPanel>
+                <TextBlock Text="{Binding BedPasswordRepeatText,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Right" />
+
+                <StackPanel Style="{StaticResource verticalStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Введите секретный вопрос:" HorizontalAlignment="Center"/>
+                    <TextBox  x:Name="SecretQuestion" TextWrapping="Wrap" MinWidth="200" MinHeight="30"
+                            VerticalScrollBarVisibility="Visible"
+                          AcceptsReturn="True"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource verticalStackPanel}" HorizontalAlignment="Right">
+                    <Label Content="Введите ответ на секретный вопрос:"/>
+                    <TextBox Style="{StaticResource defaultTextBox}"  x:Name="SecretAnswer" MinWidth="200"/>
+                </StackPanel>
+                
+            </StackPanel>
+        </Grid>
+        <StackPanel Style="{StaticResource baseStackPanel}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2">
+
+            <Label Style="{StaticResource labelLink}" FontSize="16" Padding="40,10" Margin="0,0,150,0" VerticalContentAlignment="Center" Cursor="Hand" Content="Отмена" >
+                <Label.InputBindings>
+                    <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GotoLogin}"/>
+                </Label.InputBindings>
+            </Label>
+            <Button  Style="{StaticResource defaultButton}"  Padding="5,0" MinWidth="150" Command="{Binding Registrate}" Content="Зарегистрировать">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource Converter}">
+                        <Binding ElementName="FirstName" Path="Text"/>
+                        <Binding ElementName="SecondName" Path="Text"/>
+                        <Binding ElementName="LastName" Path="Text"/>
+                        <Binding ElementName="Address" Path="Text"/>
+                        <Binding ElementName="PhoneNumber" Path="Text"/>
+                        <Binding ElementName="Login" Path="Text"/>
+                        <Binding ElementName="SecretQuestion" Path="Text"/>
+                        <Binding ElementName="SecretAnswer" Path="Text"/>
+
+
+                    </MultiBinding>
+
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

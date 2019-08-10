@@ -1,0 +1,86 @@
+﻿<Page x:Class="Nursery.View.AdminFrames.UsersControlPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Nursery.View.AdminFrames"
+      xmlns:model="clr-namespace:Nursery.Model"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UsersControlPanel">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="pack://application:,,,/Nursery;component/Common/redcat.jpg" Opacity="0.75" Stretch="UniformToFill"/>
+
+        <Button Margin="10" Grid.Row="0" MinWidth="150" Style="{StaticResource defaultButton}" Content="Выйти из профиля" Command="{Binding BackToLogin}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+        <Label Grid.Row="0" Content="Панель пользователей" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="400" Height="100"/>
+        <!--<ListBox Style="{StaticResource defaultListBox}" Grid.Row="1" ItemsSource="{Binding Users,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem}" Height="200" Margin="0,70,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <UniformGrid Columns="7">
+                        <UniformGrid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin"  Value="5"/>
+                                <Setter Property="TextAlignment"  Value="Center"/>
+                                <Setter Property="Width"  Value="200"/>
+
+                            </Style>
+                        </UniformGrid.Resources>
+                        <TextBlock Text="{Binding FirstName,StringFormat=Имя: {0}}" />
+                        <TextBlock Text="{Binding SecondName,StringFormat=Фамилия: {0}}"/>
+                        <TextBlock Text="{Binding LastName,StringFormat=Отчество: {0}}"/>
+                        <TextBlock Text="{Binding Male.Male,StringFormat=Пол: {0}}"/>
+                        <TextBlock Text="{Binding Age,StringFormat=Возраст: {0}}"/>
+
+                        <TextBlock Text="{Binding Status.Status,StringFormat=Должность: {0}}"/>
+                        <TextBlock Text="{Binding Money,StringFormat=Бюджет: {0}}"/>
+
+                        
+                    </UniformGrid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+        <TabControl Grid.Row="1" SelectedIndex="{Binding IndexOfTabs}">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding swichHelperforUsers}"
+                                     />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+            <TabItem Header="Пользователи">
+                <TabItem.Content>
+                    <Frame Content="{Binding UsersTab}"
+                            NavigationUIVisibility="Hidden"
+                            Opacity="{Binding FrameOpacity}">
+                    </Frame>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Заявления на работу" >
+                <TabItem.Content>
+                    <Frame Content="{Binding ClientsTab}"
+                            NavigationUIVisibility="Hidden"
+                            Opacity="{Binding FrameOpacity}">
+                    </Frame>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Журнал логов">
+                <TabItem.Content>
+                    <Frame Content="{Binding LogsTab}"
+                            NavigationUIVisibility="Hidden"
+                            Opacity="{Binding FrameOpacity}">
+                    </Frame>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Page>

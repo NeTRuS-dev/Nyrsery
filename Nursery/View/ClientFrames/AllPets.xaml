@@ -1,0 +1,96 @@
+﻿<Page x:Class="Nursery.View.ClientFrames.AllPets"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Nursery.View.ClientFrames"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AllPets">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+
+        </Grid.RowDefinitions>
+        <Button Margin="10" MinWidth="150" Height="30" Content="Выйти из профиля" Command="{Binding BackToLogin}" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource defaultButton}"/>
+
+        <Label Content="Панель питомцев" Style="{StaticResource headerLabel}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                
+                <ItemsControl HorizontalContentAlignment="Center" ItemsSource="{Binding Pets,UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Button Height="280" Width="180" Command="{Binding SelectPet}" CommandParameter="{Binding}">
+
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Cursor" Value="Hand"/>
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#e6e6e6"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="False">
+                                                            <Setter Property="Background" Value="White"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding Selected}" Value="True">
+                                                            <Setter Property="BorderThickness"  Value="3"/>
+                                                            <Setter Property="Background" Value="#ccc"/>
+
+                                                        </DataTrigger>
+
+                                                    </ControlTemplate.Triggers>
+
+                                                    <Border CornerRadius="10" BorderBrush="Black" Background="{TemplateBinding Background}"  BorderThickness="{TemplateBinding BorderThickness}" Margin="10">
+                                                        <StackPanel Orientation="Vertical" Margin="0,5,0,0">
+                                                            <Image Source="{Binding bitmapImage}" Height="150" Width="150"/>
+                                                            <Label Content="{Binding Name}"  FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                                                            <TextBlock Text="{Binding Type.PetType,StringFormat=Род: {0}}" HorizontalAlignment="Center"/>
+                                                            <TextBlock Text="{Binding Male.Male,StringFormat=Пол: {0}}" HorizontalAlignment="Center"/>
+
+                                                            <TextBlock Text="{Binding Age,StringFormat=Возраст: {0}}" HorizontalAlignment="Center"/>
+                                                            <TextBlock Text="{Binding Price,StringFormat=Цена: {0}}" HorizontalAlignment="Center"/>
+
+                                                        </StackPanel>
+
+                                                    </Border>
+
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                    </Style>
+                                </Button.Style>
+
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Покормить"
+                            Command="{Binding BuyFoodForPet}"/>
+                            <MenuItem Header="Купить питомца"
+                            Command="{Binding BuyPet}"/>
+                          
+                        </ContextMenu>
+
+                    </ItemsControl.ContextMenu>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+       
+    </Grid>
+</Page>

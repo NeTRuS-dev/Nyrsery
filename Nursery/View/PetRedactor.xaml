@@ -1,0 +1,82 @@
+﻿<Window x:Class="Nursery.View.PetRedactor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico"
+        Title="PetRedactor" Height="600" Width="1000">
+    <Grid Style="{StaticResource defaultGrid}">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <StackPanel>
+                <Label Content="Редактировать профиль питомца" HorizontalAlignment="Center" Padding="20" Style="{StaticResource headerLabel}"/>
+                <StackPanel Style="{StaticResource verticalStackPanel}">
+                    <StackPanel Margin="0,0,90,0">
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Имя:" Margin="25,0,0,0"/>
+                            <TextBox Style="{StaticResource defaultTextBox}" Text="{Binding CurrentPet.Name}" />
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Род животного:"/>
+                            <ComboBox  ItemsSource="{Binding TypesofPets}"
+                          SelectedItem="{Binding SelectedTypeOfPet}"
+                           MinWidth="81">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PetType}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource verticalStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Описание:" Margin="25,0,0,0" HorizontalContentAlignment="Left"/>
+                            <TextBox  Text="{Binding CurrentPet.Decription}" TextWrapping="Wrap" Height="70" Width="150"
+                    VerticalScrollBarVisibility="Visible"
+                    AcceptsReturn="True"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Пол животного:" Margin="25,0,0,0"/>
+                            <ComboBox ItemsSource="{Binding Males}"
+                          SelectedItem="{Binding SettedMale}"
+                           MinWidth="81">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Male}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Возраст:" Margin="25,0,0,0"/>
+                            <TextBox Style="{StaticResource defaultTextBox}"  Text="{Binding CurrentPet.Age,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Цена:" Margin="25,0,0,0"/>
+                            <TextBox Style="{StaticResource defaultTextBox}" x:Name="Price" Text="{Binding CurrentPet.Price,UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource baseStackPanel}" HorizontalAlignment="Right">
+                            <Label Content="Наличие прививок:" Margin="25,0,0,0"/>
+                            <CheckBox IsThreeState="False" IsChecked="{Binding CurrentPet.Vactinade}" Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource verticalStackPanel}">
+                        <Image Source="{Binding PetIcon}" Width="200" Height="100" Margin="0,25,0,0"/>
+                        <Button Style="{StaticResource defaultButton}" Content="Изменить фото" Command="{Binding OpenImage}"/>
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Style="{StaticResource baseStackPanel}">
+                    <Label Style="{StaticResource labelLink}" Padding="40,10" VerticalContentAlignment="Center" Cursor="Hand" Content="Отмена" HorizontalAlignment="Left">
+                        <Label.InputBindings>
+                            <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GoBack}"/>
+                        </Label.InputBindings>
+                    </Label>
+                    <Button Command="{Binding EditProfil}" Width="200" Height="50" Content="Подтвердить изменения" Style="{StaticResource defaultButton}"/>
+
+                </StackPanel>
+                </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,113 @@
+﻿<Window x:Class="Nursery.View.WorkerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nursery.View"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/Nursery;component/Common/Google-Noto-Emoji-People-Bodyparts-11947-middle-finger-light-skin-tone.ico"
+
+        Title="WorkerView" Height="600" Width="1000">
+    <Grid Style="{StaticResource defaultGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.1*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Style="{StaticResource menuGrid}">
+            <StackPanel Style="{StaticResource verticalStackPanel}">
+                <Label Content="Вы сотрудник фирмы ООО 'Ми-Ми-Ми'" Margin="0,10" Style="{StaticResource defaultLabel}"  HorizontalAlignment="Center"/>
+                <Label Cursor="Hand" Style="{StaticResource labelLink}" HorizontalAlignment="Center"  Content="Редактировать профиль">
+                    <Label.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding GoToEditter}"/>
+                    </Label.InputBindings>
+                </Label>
+                <TextBlock Text="{Binding DaysToSalary}" Style="{StaticResource defaultTextBlock}" HorizontalAlignment="Center" Margin="0,5,0,-5"/>
+                <Image Source="pack://application:,,,/Nursery;component/Common/lapka.png" Opacity="0.7" Stretch="Uniform" HorizontalAlignment="Center" Width="70" Height="70">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="30"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </StackPanel>
+
+        </Grid>
+        <Image Grid.Row="0" Grid.Column="1" Source="pack://application:,,,/Nursery;component/Common/redcat.jpg" Opacity="0.75" Stretch="UniformToFill"/>
+        <Button Margin="10" Grid.Column="1" MinWidth="150" Height="30" Content="Выйти из профиля" Command="{Binding BackToLogin}" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource defaultButton}"/>
+
+        <!--<ListBox Style="{StaticResource defaultListBox}"  ItemsSource="{Binding Pets,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPet}" MinHeight="250">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="7">
+                            <UniformGrid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin"  Value="5"/>
+                                    <Setter Property="TextAlignment"  Value="Center"/>
+                                    <Setter Property="Width"  Value="200"/>
+
+                                </Style>
+                            </UniformGrid.Resources>
+                            <TextBlock Text="{Binding Name,StringFormat=Имя: {0}}" />
+                            <TextBlock Text="{Binding Type.PetType,StringFormat=Род: {0}}" />
+                            <TextBlock Text="{Binding Male.Male,StringFormat=Пол: {0}}" />
+
+                            <TextBlock Text="{Binding Age,StringFormat=Возраст: {0}}" />
+                            <TextBlock Text="{Binding Price,StringFormat=Цена: {0}}" />
+                            <TextBlock Text="{Binding LastTimeOfEatingStr,StringFormat=Кормили: {0}}" />
+
+                            <TextBlock Text="{Binding GetVactcina,StringFormat=Привит: {0}}" />
+
+
+                        </UniformGrid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>-->
+        <DataGrid Grid.Row="1" Grid.Column="1" Style="{StaticResource defaultDataGrid}" ItemsSource="{Binding Pets,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPet}">
+            <DataGrid.Columns>
+                <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Имя" Binding="{Binding Name}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn MinWidth="90" HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Род"  Binding="{Binding Type.PetType}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn MinWidth="110" HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Пол"  Binding="{Binding Male.Male}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn MinWidth="210" HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Время последней кормёжки"  Binding="{Binding LastTimeOfEatingStr}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn MinWidth="190" HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Оплаченное кормление" Binding="{Binding WantToEat}" ElementStyle="{StaticResource cellDataGrid}"/>
+
+                <DataGridTextColumn Header="Вакцинация" Binding="{Binding GetVactcina}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Возраст"  Binding="{Binding Age}" ElementStyle="{StaticResource cellDataGrid}"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource CenterGridHeaderStyle}" Header="Цена"  Binding="{Binding Price}" ElementStyle="{StaticResource cellDataGrid}"/>
+
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Покормить"
+                            Command="{Binding ToFeed}"/>
+                    <MenuItem Header="Сделать прививки"
+                            Command="{Binding GetVaccination}"/>
+                    <MenuItem Header="Дать лакомство"
+                            Command="{Binding GiveDelicacy}"/>
+                    <MenuItem Header="Редактировать профиль питомца"
+                            Command="{Binding RedactPet}"/>
+                </ContextMenu>
+
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <Grid Grid.Column="0" Grid.Row="1" Style="{StaticResource menuGrid}">
+            <StackPanel Style="{StaticResource verticalStackPanel}" VerticalAlignment="Center">
+                <Button Command="{Binding ToFeed}" MinWidth="150" Content="Покормить" Style="{StaticResource defaultButton}"  Margin="0,7"/>
+                <Button MinWidth="160" Content="Сделать прививки" Command="{Binding GetVaccination}" Style="{StaticResource defaultButton}"  Margin="0,7"/>
+                <Button Command="{Binding GiveDelicacy}" MinWidth="150" Content="Дать лакомство" Style="{StaticResource defaultButton}"  Margin="0,7"/>
+                <Button Command="{Binding RedactPet}" MinWidth="250" Content="Редактировать профиль питомца" Style="{StaticResource defaultButton}"  Margin="0,7"/>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>
