@@ -804,4 +804,10 @@
   <Log>
     <Info>25.04.2020 13:31:32: В аккаунт вошёл пользователь vladbozhev</Info>
   </Log>
+  <Log>
+    <Info>25.04.2020 14:22:05: В аккаунт вошёл пользователь vladbozhev</Info>
+  </Log>
+  <Log>
+    <Info>25.04.2020 14:22:13: Пользователь vladbozhev вышел из аккаунта</Info>
+  </Log>
 </ArrayOfLog>

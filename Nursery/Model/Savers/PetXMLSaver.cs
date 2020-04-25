@@ -7,47 +7,30 @@ namespace Nursery.Model.Savers
 {
     public class PetXmlSaver : IPetSaver
     {
-        private static readonly string path = "Data/RegisteredUsers.xml";
+        private static readonly string path = "Data/RegisteredPets.xml";
 
-        public void Save(decimal balanceOfOrganization)
+        public void Save()
         {
-            foreach (var user in User.Users)
+            XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
+            using (FileStream fileStram = new FileStream(path, FileMode.Create))
             {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
-                }
-            }
-
-            XmlSerializer serializer = new XmlSerializer(typeof(User[]));
-            using (FileStream fileSteam = new FileStream(path, FileMode.Create))
-            {
-                serializer.Serialize(fileSteam, User.Users.ToArray());
-                fileSteam.Close();
+                serializer.Serialize(fileStram, Pet.Pets.ToArray());
+                fileStram.Close();
             }
         }
 
-        public void Load(decimal balanceOfOrganization)
+        public void Load()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(User[]));
-            if (!File.Exists(path)) return;
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
+            if (File.Exists(path))
             {
-                if (serializer.Deserialize(fileStream) is User[] _users)
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
                 {
-                    User.Users = new ObservableCollection<User>(_users);
-                }
-
-                fileStream.Close();
-            }
-
-            foreach (var user in User.Users)
-            {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
+                    if (serializer.Deserialize(fileStream) is Pet[] _pets)
+                    {
+                        Pet.Pets = new ObservableCollection<Pet>(_pets);
+                    }
+                    fileStream.Close();
                 }
             }
         }

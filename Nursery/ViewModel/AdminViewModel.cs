@@ -555,14 +555,14 @@ namespace Nursery.ViewModel
             {
                 var tmp = new ObservableCollection<PetExtender>();
                 Pet.Load();
-                for (int i = 0; i < Pet.pets.Count; i++)
+                for (int i = 0; i < Pet.Pets.Count; i++)
                 {
                     bool checkSelect = false; ;
                     if (SelectedPet!=null)
                     {
-                        checkSelect = Pet.pets[i].Name == SelectedPet.Name;
+                        checkSelect = Pet.Pets[i].Name == SelectedPet.Name;
                     }
-                    tmp.Add(new PetExtender(Pet.pets[i], checkSelect));
+                    tmp.Add(new PetExtender(Pet.Pets[i], checkSelect));
                 }
                 return tmp;
             }
@@ -583,7 +583,7 @@ namespace Nursery.ViewModel
                         File.Delete(SelectedPet.ImagePath);
                     }
                   
-                    Pet.pets.RemoveAt(Pet.GetIndexOfPet(SelectedPet));
+                    Pet.Pets.RemoveAt(Pet.GetIndexOfPet(SelectedPet));
                     SelectedPet = null;
                     Pet.Save();
                     OnPropertyChanged(nameof(Pets));
@@ -938,9 +938,9 @@ namespace Nursery.ViewModel
                     {
                         case 1:
                             MessageBox.Show("Теперь зверушки будут сыты!!!");
-                            for (int i = 0; i < Pet.pets.Count; i++)
+                            for (int i = 0; i < Pet.Pets.Count; i++)
                             {
-                                Pet.pets[i].LastTimeOfEating = DateTime.Now;
+                                Pet.Pets[i].LastTimeOfEating = DateTime.Now;
                                 Pet.Save();
                                 OnPropertyChanged(nameof(Pets));
                             }

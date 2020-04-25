@@ -139,14 +139,14 @@ namespace Nursery.ViewModel
             {
                 var tmp = new ObservableCollection<PetExtender>();
                 Pet.Load();
-                for (int i = 0; i < Pet.pets.Count; i++)
+                for (int i = 0; i < Pet.Pets.Count; i++)
                 {
                     bool checkSelect = false; ;
                     if (SelectedPet != null)
                     {
-                        checkSelect = Pet.pets[i].Name == SelectedPet.Name;
+                        checkSelect = Pet.Pets[i].Name == SelectedPet.Name;
                     }
-                    tmp.Add(new PetExtender(Pet.pets[i], checkSelect));
+                    tmp.Add(new PetExtender(Pet.Pets[i], checkSelect));
                 }
                 return tmp;
             }
@@ -195,7 +195,7 @@ namespace Nursery.ViewModel
                                 break;
                             }
                         }
-                        Pet.pets[Pet.GetIndexOfPet(SelectedPet)].PayedEating = true;
+                        Pet.Pets[Pet.GetIndexOfPet(SelectedPet)].PayedEating = true;
                         new Log(LogType.buyDelicatesForPet, new string[] { currentUser.Login, SelectedPet.Name });
                         MessageBox.Show($"Вы успешно заказали лакомство для питомца по кличке {SelectedPet.Name}.");
                         SelectedPet = null;
@@ -271,7 +271,7 @@ namespace Nursery.ViewModel
                         }
                         User.Users[User.GetIndexOfUser(currentUser)].AddPet(SelectedPet);
                         new Log(LogType.buyPet, new string[] { currentUser.Login, SelectedPet.Name });
-                        Pet.pets.RemoveAt(Pet.GetIndexOfPet(SelectedPet));
+                        Pet.Pets.RemoveAt(Pet.GetIndexOfPet(SelectedPet));
                         SelectedPet = null;
                         Pet.Save();
                         OnPropertyChanged(nameof(Balance));
@@ -299,7 +299,7 @@ namespace Nursery.ViewModel
                 return new RealiseCommand((obj) =>
                 {
 
-                    Pet.pets.Add(SelectedMyPet);
+                    Pet.Pets.Add(SelectedMyPet);
                     new Log(LogType.sendToNursery, new string[] { currentUser.Login, SelectedMyPet.Name });
 
                     User.Users[User.GetIndexOfUser(currentUser)].MyPets.Remove(SelectedMyPet);

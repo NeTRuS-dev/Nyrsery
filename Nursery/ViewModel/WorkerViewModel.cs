@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Nursery.Model;
 using Nursery.View;
@@ -81,9 +77,9 @@ namespace Nursery.ViewModel
             {
                 var tmp = new ObservableCollection<Pet>();
                 Pet.Load();
-                for (int i = 0; i < Pet.pets.Count; i++)
+                for (int i = 0; i < Pet.Pets.Count; i++)
                 {
-                    tmp.Add(Pet.pets[i]);
+                    tmp.Add(Pet.Pets[i]);
                 }
                 return tmp;
             }
@@ -155,7 +151,7 @@ namespace Nursery.ViewModel
                     }
                     new Log(LogType.getVactcination, new string[] { currentUser.Login, SelectedPet.Name });
 
-                    Pet.pets[Pet.pets.IndexOf(SelectedPet)].Vactinade = true;
+                    Pet.Pets[Pet.Pets.IndexOf(SelectedPet)].Vactinade = true;
                     Pet.Save();
 
                     OnPropertyChanged(nameof(Pets));

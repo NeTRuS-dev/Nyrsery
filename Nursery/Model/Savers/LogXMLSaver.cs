@@ -7,49 +7,34 @@ namespace Nursery.Model.Savers
 {
     public class LogXmlSaver : ILogSaver
     {
-        private static readonly string path = "Data/RegisteredUsers.xml";
+        private static readonly string path = "Data/Logs.xml";
 
-        public void Save(decimal balanceOfOrganization)
+        public void Save()
         {
-            foreach (var user in User.Users)
+            XmlSerializer serializer = new XmlSerializer(typeof(Log[]));
+            using (FileStream fileStram = new FileStream(path, FileMode.Create))
             {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
-                }
-            }
-
-            XmlSerializer serializer = new XmlSerializer(typeof(User[]));
-            using (FileStream fileSteam = new FileStream(path, FileMode.Create))
-            {
-                serializer.Serialize(fileSteam, User.Users.ToArray());
-                fileSteam.Close();
+                serializer.Serialize(fileStram, Log.LogsList.ToArray());
+                fileStram.Close();
             }
         }
 
-        public void Load(decimal balanceOfOrganization)
+        public void Load()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(User[]));
-            if (!File.Exists(path)) return;
-            using (FileStream fileStream = new FileStream(path, FileMode.Open))
+            XmlSerializer serializer = new XmlSerializer(typeof(Log[]));
+            if (File.Exists(path))
             {
-                if (serializer.Deserialize(fileStream) is User[] _users)
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
                 {
-                    User.Users = new ObservableCollection<User>(_users);
+                    if (serializer.Deserialize(fileStream) is Log[] _logs)
+                    {
+                        Log.LogsList = new ObservableCollection<Log>(_logs);
+                    }
+                    fileStream.Close();
                 }
 
-                fileStream.Close();
             }
 
-            foreach (var user in User.Users)
-            {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
-                }
-            }
         }
     }
 }

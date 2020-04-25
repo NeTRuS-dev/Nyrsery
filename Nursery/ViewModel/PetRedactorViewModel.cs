@@ -2,13 +2,9 @@
 using Nursery.Model;
 using Nursery.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -206,9 +202,9 @@ namespace Nursery.ViewModel
             {
                 return new RealiseCommand((obj) =>
                 {
-                    for (int i = 0; i < Pet.pets.Count; i++)
+                    for (int i = 0; i < Pet.Pets.Count; i++)
                     {
-                        if (currentPet.Name == Pet.pets[i].Name && i != indexOfPet)
+                        if (currentPet.Name == Pet.Pets[i].Name && i != indexOfPet)
                         {
                             MessageBox.Show("Питомец с таким именем уже есть");
                             return;
@@ -239,7 +235,7 @@ namespace Nursery.ViewModel
                     }
 
                     currentPet.ImagePath = $"Data/Pets/{currentPet.Name}{src}";
-                    Pet.pets[indexOfPet] = currentPet;
+                    Pet.Pets[indexOfPet] = currentPet;
                     Pet.Save();
                     MessageBox.Show("Изменения применены!!!");
                     new Log(LogType.edittedPetProfile, new string[] { currentUser.Login, currentPet.Name });

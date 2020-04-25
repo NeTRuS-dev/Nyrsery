@@ -80,7 +80,11 @@
     <Compile Include="Model\LogsEnum.cs" />
     <Compile Include="Model\MalesEnum.cs" />
     <Compile Include="Model\PetExtender.cs" />
+    <Compile Include="Model\Savers\ILogSaver.cs" />
+    <Compile Include="Model\Savers\IPetSaver.cs" />
     <Compile Include="Model\Savers\IUserSaver.cs" />
+    <Compile Include="Model\Savers\LogXMLSaver.cs" />
+    <Compile Include="Model\Savers\PetXMLSaver.cs" />
     <Compile Include="Model\Savers\UserXMLSaver.cs" />
     <Compile Include="Model\StatusesEnum.cs" />
     <Compile Include="Model\TypeOfPet.cs" />

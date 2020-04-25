@@ -43,7 +43,7 @@ namespace Nursery.Model
 
         public User(string firstName, string secondName, string lastName, string address, string phoneNumber,
             string login, string password, StatusOfPeople status, Males male, DateTime dateOfBorn,
-            string secretQuestion, string secretAnswer, IUserSaver newUserSaver = null)
+            string secretQuestion, string secretAnswer)
         {
             myPets = new ObservableCollection<Pet>();
             this.FirstName = firstName;
@@ -65,13 +65,9 @@ namespace Nursery.Model
             }
 
             Users ??= new ObservableCollection<User>();
-
-            
-            userSaver ??= newUserSaver ?? new UserXmlSaver();
-
             
             Users.Add(this);
-            userSaver.Save(balanceOfOrganization);
+            Save();
         }
 
         public static int GetIndexOfUser(User user)
@@ -152,7 +148,7 @@ namespace Nursery.Model
             }
 
             myPets.Add(pet);
-            userSaver.Save(balanceOfOrganization);
+            Save();
         }
 
         public void SetPassword(string pass, string salt)

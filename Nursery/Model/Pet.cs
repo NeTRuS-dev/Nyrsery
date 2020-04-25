@@ -1,24 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Xml.Serialization;
+using Nursery.Model.Savers;
 using Nursery.ViewModel;
 
 namespace Nursery.Model
 {
-
     public class Pet
     {
+        private static IPetSaver petSaver = new PetXmlSaver();
 
-        public static ObservableCollection<Pet> pets;
-        private static readonly string path = "Data/RegisteredPets.xml";
+        private static ObservableCollection<Pet> _pets;
+
+        public static ObservableCollection<Pet> Pets
+        {
+            get => _pets;
+            set => _pets = value;
+        }
+
         public string Name { get; set; }
         public string Decription { get; set; }
         public int Age { get; set; }
@@ -31,13 +32,12 @@ namespace Nursery.Model
         public string ImagePath { get; set; }
 
 
-
         public Pet()
         {
-
         }
 
-        public Pet(string Name, string Decription, int Age, decimal Price, bool Vactinade, TypeOfPet Type, Males male, string ImagePath)
+        public Pet(string Name, string Decription, int Age, decimal Price, bool Vactinade, TypeOfPet Type, Males male,
+            string ImagePath)
         {
             this.Name = Name;
             this.Decription = Decription;
@@ -49,36 +49,28 @@ namespace Nursery.Model
             this.PayedEating = false;
             LastTimeOfEating = DateTime.Now;
             this.ImagePath = ImagePath;
-            if (pets == null)
+            if (_pets == null)
             {
-                pets = new ObservableCollection<Pet>();
+                _pets = new ObservableCollection<Pet>();
             }
-            pets.Add(this);
+
+            _pets.Add(this);
             Save();
         }
 
         public string LastTimeOfEatingStr
         {
-            get
-            {
-                return $"{LastTimeOfEating.ToLongDateString()}{LastTimeOfEating.ToShortTimeString()}";
-            }
+            get { return $"{LastTimeOfEating.ToLongDateString()}{LastTimeOfEating.ToShortTimeString()}"; }
         }
+
         public string GetVactcina
         {
-            get
-            {
-                return Vactinade ? "Да" : "Нет";
-            }
+            get { return Vactinade ? "Да" : "Нет"; }
         }
 
         public string WantToEat
         {
-            get
-            {
-
-                return PayedEating ? "Да" : "Нет";
-            }
+            get { return PayedEating ? "Да" : "Нет"; }
         }
 
         public BitmapImage bitmapImage
@@ -97,36 +89,38 @@ namespace Nursery.Model
 
         public static bool CheckLoginDublicate(string log)
         {
-            if (pets == null)
+            if (_pets == null)
             {
                 return false;
             }
-            else if ((pets.Where(x => x.Name == log)).Count() != 0)
+            else if ((_pets.Where(x => x.Name == log)).Count() != 0)
             {
                 MessageBox.Show($"Питомец с именем {log} уже есть!!!");
                 return true;
             }
-            return false;
 
+            return false;
         }
 
 
         public static int GetIndexOfPet(Pet pet)
         {
             int indexOfPet = -1;
-            for (int i = 0; i < Pet.pets.Count; i++)
+            for (int i = 0; i < Pet._pets.Count; i++)
             {
-                if (pet.Name == Pet.pets[i].Name)
+                if (pet.Name == Pet._pets[i].Name)
                 {
                     indexOfPet = i;
                     break;
-
                 }
             }
+
             return indexOfPet;
         }
+
         public static event Action SelectedPetChanged;
         public static Pet SelectedPet { get; set; } //datacontext для itemscontrols
+
         public static RealiseCommand SelectPet
         {
             get
@@ -134,45 +128,29 @@ namespace Nursery.Model
                 return new RealiseCommand(((obj) =>
                 {
                     var tmp = obj as PetExtender;
-                    for (int i = 0; i < Pet.pets.Count; i++)
+                    for (int i = 0; i < Pet._pets.Count; i++)
                     {
-                        if (tmp.Name== Pet.pets[i].Name)
+                        if (tmp.Name == Pet._pets[i].Name)
                         {
-                            SelectedPet = Pet.pets[i];
-
+                            SelectedPet = Pet._pets[i];
                         }
                     }
+
                     //SelectedPet = obj as Pet;
                     SelectedPetChanged?.Invoke();
                 }));
             }
         }
 
+
         public static void Save()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
-            using (FileStream fileStram = new FileStream(path, FileMode.Create))
-            {
-                serializer.Serialize(fileStram, pets.ToArray());
-                fileStram.Close();
-            }
+            petSaver.Save();
         }
+
         public static void Load()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
-            if (File.Exists(path))
-            {
-                using (FileStream fileStream = new FileStream(path, FileMode.Open))
-                {
-                    if (serializer.Deserialize(fileStream) is Pet[] _pets)
-                    {
-                        pets = new ObservableCollection<Pet>(_pets);
-                    }
-                    fileStream.Close();
-                }
-            }
-
+            petSaver.Load();
         }
     }
 }
-
