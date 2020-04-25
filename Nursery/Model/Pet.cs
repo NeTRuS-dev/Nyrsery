@@ -148,7 +148,7 @@ namespace Nursery.Model
             }
         }
 
-        internal static void Save()
+        public static void Save()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
             using (FileStream fileStram = new FileStream(path, FileMode.Create))
@@ -157,7 +157,7 @@ namespace Nursery.Model
                 fileStram.Close();
             }
         }
-        internal static void Load()
+        public static void Load()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Pet[]));
             if (File.Exists(path))
