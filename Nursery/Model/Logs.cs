@@ -13,16 +13,17 @@ namespace Nursery.Model
 
     public class Log
     {
-        public static ObservableCollection<Log> logs;
+        private static ObservableCollection<Log> _logs;
         private static readonly string path = "Data/Logs.xml";
-        private string info;
-        public string Info { get => info; set => info = value; }
+        public string Info { get; set; }
 
-
-        public Log()
+        public static ObservableCollection<Log> LogsList
         {
-
+            get => _logs;
+            set => _logs = value;
         }
+
+        public Log() { }
         public Log(LogType type, string[] info)
         {
             Log.Load();
@@ -97,25 +98,22 @@ namespace Nursery.Model
                 default:
                     break;
             }
-            if (logs == null)
-            {
-                logs = new ObservableCollection<Log>();
-            }
-            logs.Add(this);
+            _logs ??= new ObservableCollection<Log>();
+            _logs.Add(this);
             Save();
         }
 
-        internal static void Save()
+        public static void Save()
         {
 
             XmlSerializer serializer = new XmlSerializer(typeof(Log[]));
             using (FileStream fileStram = new FileStream(path, FileMode.Create))
             {
-                serializer.Serialize(fileStram, logs.ToArray());
+                serializer.Serialize(fileStram, _logs.ToArray());
                 fileStram.Close();
             }
         }
-        internal static void Load()
+        public static void Load()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Log[]));
             if (File.Exists(path))
@@ -124,7 +122,7 @@ namespace Nursery.Model
                 {
                     if (serializer.Deserialize(fileStream) is Log[] _logs)
                     {
-                        logs = new ObservableCollection<Log>(_logs);
+                        Log._logs = new ObservableCollection<Log>(_logs);
                     }
                     fileStream.Close();
                 }

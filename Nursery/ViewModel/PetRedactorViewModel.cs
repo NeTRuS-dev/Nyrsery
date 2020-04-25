@@ -256,25 +256,25 @@ namespace Nursery.ViewModel
         {
             Window nextWindow;
 
-            switch (User.users[indexOfUser].Status._Status)
+            switch (User.Users[indexOfUser].Status.StatusEnumValue)
             {
                 case StatusEnum.client:
-                    nextWindow = new ClientView(User.users[indexOfUser]);
+                    nextWindow = new ClientView(User.Users[indexOfUser]);
                     break;
                 case StatusEnum.worker:
-                    nextWindow = new WorkerView(User.users[indexOfUser]);
+                    nextWindow = new WorkerView(User.Users[indexOfUser]);
 
                     break;
                 case StatusEnum.adminisrator:
-                    nextWindow = new AdminView(User.users[indexOfUser]);
+                    nextWindow = new AdminView(User.Users[indexOfUser]);
 
                     break;
                 case StatusEnum.superadmin:
-                    nextWindow = new AdminView(User.users[indexOfUser]);
+                    nextWindow = new AdminView(User.Users[indexOfUser]);
 
                     break;
                 default:
-                    nextWindow = new ClientView(User.users[indexOfUser]);
+                    nextWindow = new ClientView(User.Users[indexOfUser]);
                     break;
 
             }

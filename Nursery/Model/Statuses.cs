@@ -10,14 +10,18 @@ namespace Nursery.Model
     
     public class StatusOfPeople
     {
-        private StatusEnum _status;
-        public StatusEnum _Status { get => _status; set => _status = value; }
+        public StatusEnum StatusEnumValue { get; set; }
 
+        public StatusOfPeople() { }
+        public StatusOfPeople(StatusEnum statusEnumValue)
+        {
+            this.StatusEnumValue = statusEnumValue;
+        }
         public string Status
         {
             get
             {
-                switch (_status)
+                switch (StatusEnumValue)
                 {
                     case StatusEnum.client:
                         return "Клиент";
@@ -36,18 +40,18 @@ namespace Nursery.Model
                 switch (value)
                 {
                     case "Клиент":
-                        _status = StatusEnum.client;
+                        StatusEnumValue = StatusEnum.client;
                         break;
                     case "Работник":
-                        _status = StatusEnum.worker;
+                        StatusEnumValue = StatusEnum.worker;
 
                         break;
                     case "Администратор":
-                        _status = StatusEnum.adminisrator;
+                        StatusEnumValue = StatusEnum.adminisrator;
 
                         break;
                     case "Господь Бог":
-                        _status = StatusEnum.superadmin;
+                        StatusEnumValue = StatusEnum.superadmin;
                         break;
 
                     default:
@@ -55,16 +59,7 @@ namespace Nursery.Model
                 }
             }
         }
-
-
-        public StatusOfPeople()
-        {
-
-        }
-        public StatusOfPeople(StatusEnum status)
-        {
-            this._status = status;
-        }
+        
     }
 
 }

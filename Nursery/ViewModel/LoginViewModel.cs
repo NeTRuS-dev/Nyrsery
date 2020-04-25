@@ -61,7 +61,7 @@ namespace Nursery.ViewModel
 
                 Window nextWindow;
                 // MessageBox.Show($"Здравствуйте {currentUser.FirstName} {currentUser.SecondName} {currentUser.LastName}");
-                switch (currentUser.Status._Status)
+                switch (currentUser.Status.StatusEnumValue)
                 {
                     case StatusEnum.client:
                         nextWindow = new ClientView(currentUser);
@@ -151,7 +151,7 @@ namespace Nursery.ViewModel
             User.Load();
             string toCheck = obj.ToString();
             bool finded = false;
-            foreach (var item in User.users)
+            foreach (var item in User.Users)
             {
                 if (item.Login == toCheck || item.PhoneNumber == toCheck)
                 {
@@ -163,7 +163,7 @@ namespace Nursery.ViewModel
                     break;
                 }
             }
-            if (finded == false)
+            if (!finded)
             {
                 MessageBox.Show("Такого пользователя нет!!!");
             }
@@ -230,7 +230,7 @@ namespace Nursery.ViewModel
             {
                 if (NewPass.Length >= minpasswordlength && (NewPass.Any(ch => char.IsLetter(ch)) && NewPass.Any(ch => char.IsDigit(ch))))
                 {
-                    User.users[User.GetIndexOfUser(CheckingUser)].SetPassword(NewPass, CheckingUser.Login);
+                    User.Users[User.GetIndexOfUser(CheckingUser)].SetPassword(NewPass, CheckingUser.Login);
                     User.Save();
                     MessageBox.Show($"{CheckingUser.FirstName}, пароль успешно сменён!!!");
                     Form.Create(window, new LoginView());

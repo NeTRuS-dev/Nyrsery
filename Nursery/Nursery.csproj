@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -79,6 +80,8 @@
     <Compile Include="Model\LogsEnum.cs" />
     <Compile Include="Model\MalesEnum.cs" />
     <Compile Include="Model\PetExtender.cs" />
+    <Compile Include="Model\Savers\IUserSaver.cs" />
+    <Compile Include="Model\Savers\UserXMLSaver.cs" />
     <Compile Include="Model\StatusesEnum.cs" />
     <Compile Include="Model\TypeOfPet.cs" />
     <Compile Include="Features\ConverterInput.cs" />

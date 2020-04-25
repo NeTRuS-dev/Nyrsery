@@ -187,11 +187,11 @@ namespace Nursery.ViewModel
                     else
                     {
                         currentUser.Money -= SelectedPet.Price * 0.1m;
-                        for (int i = 0; i < User.users.Count; i++)
+                        for (int i = 0; i < User.Users.Count; i++)
                         {
-                            if (User.users[i].Status._Status == StatusEnum.adminisrator || User.users[i].Status._Status == StatusEnum.superadmin)
+                            if (User.Users[i].Status.StatusEnumValue == StatusEnum.adminisrator || User.Users[i].Status.StatusEnumValue == StatusEnum.superadmin)
                             {
-                                User.users[i].Money += SelectedPet.Price * 0.1m;
+                                User.Users[i].Money += SelectedPet.Price * 0.1m;
                                 break;
                             }
                         }
@@ -231,7 +231,7 @@ namespace Nursery.ViewModel
                                 " Мы всегда рады новым сотрудникам,\n" +
                                 "Вы хотите подать заявку прямо сейчас?", "Хотите подать заявление на работу?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         {
-                            User.users[User.GetIndexOfUser(currentUser)].WantToBeWorker = true;
+                            User.Users[User.GetIndexOfUser(currentUser)].WantToBeWorker = true;
                             // currentUser.WantToBeWorker = true;
                             new Log(LogType.tryToGoToTheJob, new string[] { currentUser.Login });
                             User.Save();
@@ -260,16 +260,16 @@ namespace Nursery.ViewModel
                     }
                     else
                     {
-                        User.users[User.GetIndexOfUser(currentUser)].Money -= SelectedPet.Price;
-                        for (int i = 0; i < User.users.Count; i++)
+                        User.Users[User.GetIndexOfUser(currentUser)].Money -= SelectedPet.Price;
+                        for (int i = 0; i < User.Users.Count; i++)
                         {
-                            if (User.users[i].Status._Status == StatusEnum.adminisrator || User.users[i].Status._Status == StatusEnum.superadmin)
+                            if (User.Users[i].Status.StatusEnumValue == StatusEnum.adminisrator || User.Users[i].Status.StatusEnumValue == StatusEnum.superadmin)
                             {
-                                User.users[i].Money += SelectedPet.Price;
+                                User.Users[i].Money += SelectedPet.Price;
                                 break;
                             }
                         }
-                        User.users[User.GetIndexOfUser(currentUser)].AddPet(SelectedPet);
+                        User.Users[User.GetIndexOfUser(currentUser)].AddPet(SelectedPet);
                         new Log(LogType.buyPet, new string[] { currentUser.Login, SelectedPet.Name });
                         Pet.pets.RemoveAt(Pet.GetIndexOfPet(SelectedPet));
                         SelectedPet = null;
@@ -302,7 +302,7 @@ namespace Nursery.ViewModel
                     Pet.pets.Add(SelectedMyPet);
                     new Log(LogType.sendToNursery, new string[] { currentUser.Login, SelectedMyPet.Name });
 
-                    User.users[User.GetIndexOfUser(currentUser)].MyPets.Remove(SelectedMyPet);
+                    User.Users[User.GetIndexOfUser(currentUser)].MyPets.Remove(SelectedMyPet);
                     User.Save();
                     Pet.Save();
                     OnPropertyChanged(nameof(Pets));

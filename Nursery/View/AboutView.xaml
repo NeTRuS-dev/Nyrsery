@@ -42,7 +42,7 @@
                 </TextBlock.Effect>
 
             </TextBlock>
-            <TextBlock  Text="Телефон: +7928-810-84-92"  Foreground="White" FontSize="20"  TextAlignment="Center" Margin="0,20">
+            <TextBlock  Text="Телефон: +7-928-810-84-92"  Foreground="White" FontSize="20"  TextAlignment="Center" Margin="0,20">
                 <TextBlock.Effect>
                     <DropShadowEffect Opacity="1"  BlurRadius="5" ShadowDepth="0" Color="Black"></DropShadowEffect>
                 </TextBlock.Effect>

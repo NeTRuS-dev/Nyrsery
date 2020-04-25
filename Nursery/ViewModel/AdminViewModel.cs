@@ -74,9 +74,9 @@ namespace Nursery.ViewModel
             logsList = new ObservableCollection<Log>();
             Logs = new MultiSelectCollectionView<Log>(logsList);
             Log.Load();
-            for (int i = 0; i < Log.logs.Count; i++)
+            for (int i = 0; i < Log.LogsList.Count; i++)
             {
-                logsList.Add(Log.logs[i]);
+                logsList.Add(Log.LogsList[i]);
             }
         }
 
@@ -208,11 +208,11 @@ namespace Nursery.ViewModel
             {
                 ObservableCollection<User> tmp = new ObservableCollection<User>();
 
-                for (int i = 0; i < User.users.Count; i++)
+                for (int i = 0; i < User.Users.Count; i++)
                 {
-                    if (User.users[i].Status._Status == StatusEnum.client && User.users[i].WantToBeWorker == true)
+                    if (User.Users[i].Status.StatusEnumValue == StatusEnum.client && User.Users[i].WantToBeWorker == true)
                     {
-                        tmp.Add(User.users[i]);
+                        tmp.Add(User.Users[i]);
                     }
 
                 }
@@ -262,9 +262,9 @@ namespace Nursery.ViewModel
                 return new RealiseCommand(((obj) =>
                 {
                     int indexOfElement = User.GetIndexOfUser(SelectedClient);
-                    User.users[indexOfElement].Status._Status = StatusEnum.worker;
-                    User.users[indexOfElement].WantToBeWorker = false;
-                    new Log(LogType.confirmStatement, new string[] { currentUser.Login, User.users[indexOfElement].Login });
+                    User.Users[indexOfElement].Status.StatusEnumValue = StatusEnum.worker;
+                    User.Users[indexOfElement].WantToBeWorker = false;
+                    new Log(LogType.confirmStatement, new string[] { currentUser.Login, User.Users[indexOfElement].Login });
                     OnPropertyChanged(nameof(ClientsToWorker));
                     UsersChanged();
 
@@ -288,19 +288,15 @@ namespace Nursery.ViewModel
                 return new RealiseCommand(((obj) =>
                 {
                     int indexOfElement = User.GetIndexOfUser(SelectedClient);
-                    User.users[indexOfElement].WantToBeWorker = false;
-                    new Log(LogType.rejectStatement, new string[] { currentUser.Login, User.users[indexOfElement].Login });
+                    User.Users[indexOfElement].WantToBeWorker = false;
+                    new Log(LogType.rejectStatement, new string[] { currentUser.Login, User.Users[indexOfElement].Login });
 
                     OnPropertyChanged(nameof(ClientsToWorker));
                     User.Save();
 
                 }), ((obj) =>
                 {
-                    if (SelectedClient == null)
-                    {
-                        return false;
-                    }
-                    return true;
+                    return SelectedClient != null;
                 }));
             }
         }
@@ -336,13 +332,13 @@ namespace Nursery.ViewModel
                 {
                     for (int i = 0; i < Logs.SelectedItems.Count; i++)
                     {
-                        Log.logs.Remove(Logs.SelectedItems[i]);
+                        Log.LogsList.Remove(Logs.SelectedItems[i]);
 
                     }
                     logsList.Clear();
-                    for (int i = 0; i < Log.logs.Count; i++)
+                    for (int i = 0; i < Log.LogsList.Count; i++)
                     {
-                        logsList.Add(Log.logs[i]);
+                        logsList.Add(Log.LogsList[i]);
                     }
                     OnPropertyChanged(nameof(Logs));
                     Log.Save();
@@ -363,7 +359,7 @@ namespace Nursery.ViewModel
             {
                 return new RealiseCommand(((obj) =>
                 {
-                    Log.logs.Clear();
+                    Log.LogsList.Clear();
                     logsList.Clear();
                     OnPropertyChanged(nameof(Logs));
                     Log.Save();
@@ -380,11 +376,11 @@ namespace Nursery.ViewModel
             {
                 ObservableCollection<User> tmp = new ObservableCollection<User>();
 
-                for (int i = 0; i < User.users.Count; i++)
+                for (int i = 0; i < User.Users.Count; i++)
                 {
-                    if (User.users[i].Login != currentUser.Login && User.users[i].Status._Status != StatusEnum.superadmin)
+                    if (User.Users[i].Login != currentUser.Login && User.Users[i].Status.StatusEnumValue != StatusEnum.superadmin)
                     {
-                        tmp.Add(User.users[i]);
+                        tmp.Add(User.Users[i]);
                     }
 
                 }
@@ -399,11 +395,11 @@ namespace Nursery.ViewModel
             {
                 ObservableCollection<User> tmp = new ObservableCollection<User>();
 
-                for (int i = 0; i < User.users.Count; i++)
+                for (int i = 0; i < User.Users.Count; i++)
                 {
-                    if (User.users[i].Login != currentUser.Login && (User.users[i].Status._Status == StatusEnum.worker || User.users[i].Status._Status == StatusEnum.adminisrator))
+                    if (User.Users[i].Login != currentUser.Login && (User.Users[i].Status.StatusEnumValue == StatusEnum.worker || User.Users[i].Status.StatusEnumValue == StatusEnum.adminisrator))
                     {
-                        tmp.Add(User.users[i]);
+                        tmp.Add(User.Users[i]);
                     }
 
                 }
@@ -417,11 +413,11 @@ namespace Nursery.ViewModel
             {
                 ObservableCollection<User> tmp = new ObservableCollection<User>();
 
-                for (int i = 0; i < User.users.Count; i++)
+                for (int i = 0; i < User.Users.Count; i++)
                 {
-                    if (User.users[i].Login != currentUser.Login && User.users[i].Status._Status == StatusEnum.client)
+                    if (User.Users[i].Login != currentUser.Login && User.Users[i].Status.StatusEnumValue == StatusEnum.client)
                     {
-                        tmp.Add(User.users[i]);
+                        tmp.Add(User.Users[i]);
                     }
 
                 }
@@ -438,7 +434,7 @@ namespace Nursery.ViewModel
                 {
                     new Log(LogType.deleteUser, new string[] { currentUser.Login, SelectedItem.Login });
 
-                    User.users.Remove(SelectedItem);
+                    User.Users.Remove(SelectedItem);
                     SelectedItem = null;
                     UsersChanged();
 
@@ -451,11 +447,11 @@ namespace Nursery.ViewModel
                         return false;
 
                     }
-                    if (SelectedItem.Status._Status != StatusEnum.superadmin && currentUser.Status._Status == StatusEnum.superadmin)
+                    if (SelectedItem.Status.StatusEnumValue != StatusEnum.superadmin && currentUser.Status.StatusEnumValue == StatusEnum.superadmin)
                     {
                         return true;
                     }
-                    if (SelectedItem.Status._Status == StatusEnum.adminisrator || SelectedItem.Status._Status == StatusEnum.superadmin)
+                    if (SelectedItem.Status.StatusEnumValue == StatusEnum.adminisrator || SelectedItem.Status.StatusEnumValue == StatusEnum.superadmin)
                     {
                         return false;
                     }
@@ -470,15 +466,15 @@ namespace Nursery.ViewModel
                 return new RealiseCommand(((obj) =>
                 {
                     int indexOfElement = User.GetIndexOfUser(SelectedItem);
-                    User.users[indexOfElement].Status._Status += 1;
-                    new Log(LogType.userStatusChanged, new string[] { currentUser.Login, User.users[indexOfElement].Login, User.users[indexOfElement].Status.Status });
+                    User.Users[indexOfElement].Status.StatusEnumValue += 1;
+                    new Log(LogType.userStatusChanged, new string[] { currentUser.Login, User.Users[indexOfElement].Login, User.Users[indexOfElement].Status.Status });
                     SelectedItem = null;
 
                     UsersChanged();
                     User.Save();
                 }), ((obj) =>
                 {
-                    if (SelectedItem == null || (SelectedItem.Status._Status == StatusEnum.adminisrator )  || SelectedItem.Status._Status == StatusEnum.superadmin || (SelectedItem.Status._Status == StatusEnum.client && currentUser.Status._Status != StatusEnum.superadmin))
+                    if (SelectedItem == null || (SelectedItem.Status.StatusEnumValue == StatusEnum.adminisrator )  || SelectedItem.Status.StatusEnumValue == StatusEnum.superadmin || (SelectedItem.Status.StatusEnumValue == StatusEnum.client && currentUser.Status.StatusEnumValue != StatusEnum.superadmin))
                     {
                         return false;
                     }
@@ -494,8 +490,8 @@ namespace Nursery.ViewModel
                 return new RealiseCommand(((obj) =>
                 {
                     int indexOfElement = User.GetIndexOfUser(SelectedItem);
-                    User.users[indexOfElement].Status._Status -= 1;
-                    new Log(LogType.userStatusChanged, new string[] { currentUser.Login, User.users[indexOfElement].Login, User.users[indexOfElement].Status.Status });
+                    User.Users[indexOfElement].Status.StatusEnumValue -= 1;
+                    new Log(LogType.userStatusChanged, new string[] { currentUser.Login, User.Users[indexOfElement].Login, User.Users[indexOfElement].Status.Status });
                     SelectedItem = null;
 
                     UsersChanged();
@@ -504,7 +500,7 @@ namespace Nursery.ViewModel
 
                 }), ((obj) =>
                 {
-                    if (SelectedItem == null || SelectedItem.Status._Status == StatusEnum.client || SelectedItem.Status._Status == StatusEnum.adminisrator && currentUser.Status._Status != StatusEnum.superadmin || SelectedItem.Status._Status == StatusEnum.superadmin)
+                    if (SelectedItem == null || SelectedItem.Status.StatusEnumValue == StatusEnum.client || SelectedItem.Status.StatusEnumValue == StatusEnum.adminisrator && currentUser.Status.StatusEnumValue != StatusEnum.superadmin || SelectedItem.Status.StatusEnumValue == StatusEnum.superadmin)
                     {
                         return false;
                     }
@@ -608,8 +604,7 @@ namespace Nursery.ViewModel
             OnPropertyChanged(nameof(Pets));
         }
 
-
-
+        
         public RealiseCommand RedactPet//Редактировать профиль
         {
             get
@@ -935,7 +930,7 @@ namespace Nursery.ViewModel
                 return new RealiseCommand(((obj) =>
                 {
                     int currentIndex = User.GetIndexOfUser(currentUser);
-                    User.users[currentIndex].Money -= decimal.Parse(WantToPay.Replace('.', ','));
+                    User.Users[currentIndex].Money -= decimal.Parse(WantToPay.Replace('.', ','));
 
 
                     User.Save();
@@ -958,12 +953,12 @@ namespace Nursery.ViewModel
                             break;
                         case 3:
                             MessageBox.Show("Работники вам благодарны!!!");
-                            decimal forEveryone = decimal.Parse(WantToPay.Replace('.', ',')) / User.users.Where(i => i.Status._Status == StatusEnum.worker).ToList().Count;
-                            for (int i = 0; i < User.users.Count; i++)
+                            decimal forEveryone = decimal.Parse(WantToPay.Replace('.', ',')) / User.Users.Where(i => i.Status.StatusEnumValue == StatusEnum.worker).ToList().Count;
+                            for (int i = 0; i < User.Users.Count; i++)
                             {
-                                if (User.users[i].Status._Status == StatusEnum.worker)
+                                if (User.Users[i].Status.StatusEnumValue == StatusEnum.worker)
                                 {
-                                    User.users[i].Money += forEveryone;
+                                    User.Users[i].Money += forEveryone;
                                 }
                             }
                             new Log(LogType.giveAdditiveMoney, new string[] { currentUser.Login, (WantToPay.Replace('.', ',')) });
