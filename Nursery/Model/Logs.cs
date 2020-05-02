@@ -9,7 +9,7 @@ namespace Nursery.Model
 {
     public class Log
     {
-        private static ILogSaver logSaver = new LogXmlSaver();
+        private static ISaver logSaver = new LogXmlSaver();
 
 
         private static ObservableCollection<Log> _logs;

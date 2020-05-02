@@ -5,21 +5,13 @@ using System.Xml.Serialization;
 
 namespace Nursery.Model.Savers
 {
-    public class UserXmlSaver : IUserSaver
+    public class UserXmlSaver : ISaver
     {
         private static readonly string path = "Data/RegisteredUsers.xml";
 
-        public void Save(decimal balanceOfOrganization)
+        public void Save()
         {
-            foreach (var user in User.Users)
-            {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
-                }
-            }
-
+            
             XmlSerializer serializer = new XmlSerializer(typeof(User[]));
             using (FileStream fileSteam = new FileStream(path, FileMode.Create))
             {
@@ -28,7 +20,7 @@ namespace Nursery.Model.Savers
             }
         }
 
-        public void Load(decimal balanceOfOrganization)
+        public void Load()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(User[]));
             if (!File.Exists(path)) return;
@@ -40,15 +32,6 @@ namespace Nursery.Model.Savers
                 }
 
                 fileStream.Close();
-            }
-
-            foreach (var user in User.Users)
-            {
-                if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
-                    user.Status.StatusEnumValue == StatusEnum.superadmin)
-                {
-                    user.Money = balanceOfOrganization;
-                }
             }
         }
     }

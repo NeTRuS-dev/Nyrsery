@@ -261,11 +261,11 @@ namespace Nursery.ViewModel
                     else
                     {
                         User.Users[User.GetIndexOfUser(currentUser)].Money -= SelectedPet.Price;
-                        for (int i = 0; i < User.Users.Count; i++)
+                        foreach (var user in User.Users)
                         {
-                            if (User.Users[i].Status.StatusEnumValue == StatusEnum.adminisrator || User.Users[i].Status.StatusEnumValue == StatusEnum.superadmin)
+                            if (user.Status.StatusEnumValue == StatusEnum.adminisrator || user.Status.StatusEnumValue == StatusEnum.superadmin)
                             {
-                                User.Users[i].Money += SelectedPet.Price;
+                                user.Money += SelectedPet.Price;
                                 break;
                             }
                         }
@@ -281,14 +281,7 @@ namespace Nursery.ViewModel
 
 
 
-                }), ((obj) =>
-                {
-                    if (SelectedPet == null)
-                    {
-                        return false;
-                    }
-                    return true;
-                }));
+                }), ((obj) => SelectedPet != null));
             }
         }
 
@@ -373,9 +366,7 @@ namespace Nursery.ViewModel
         }));
 
         //Пополнение счёта end
-
-
-
+        
 
         //Мои питомцы
 

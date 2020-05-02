@@ -10,18 +10,18 @@ namespace Nursery.Model
 {
     public class User
     {
-        private static IUserSaver userSaver = new UserXmlSaver();
+        private static ISaver userSaver = new UserXmlSaver();
 
-        public static ObservableCollection<User> Users;
-        private static decimal balanceOfOrganization;
+        private static decimal _balanceOfOrganization;
+        private decimal money;
         private ObservableCollection<Pet> myPets;
+        public static ObservableCollection<User> Users;
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
-        private decimal money;
         public Males Male { get; set; }
         public StatusOfPeople Status { get; set; }
         public DateTime DateOfBorn { get; set; }
@@ -35,6 +35,8 @@ namespace Nursery.Model
 
         public string SecretQuestion { get; set; }
         public string SecretAnswer { get; set; }
+
+        public bool WantToBeWorker { get; set; }
 
         public User()
         {
@@ -59,13 +61,10 @@ namespace Nursery.Model
             this.Money = 0;
             this.SecretQuestion = secretQuestion;
             this.SecretAnswer = GetSHA256(secretAnswer, login);
-            if (status.StatusEnumValue == StatusEnum.adminisrator || status.StatusEnumValue == StatusEnum.superadmin)
-            {
-                this.Money = balanceOfOrganization;
-            }
+            TryToSetBalanceForUser(this);
 
             Users ??= new ObservableCollection<User>();
-            
+
             Users.Add(this);
             Save();
         }
@@ -85,17 +84,12 @@ namespace Nursery.Model
             return indexOfUser;
         }
 
-        public bool WantToBeWorker { get; set; }
-
         public string Age
         {
             get { return $"{DateTime.Now.Year - DateOfBorn.Year}"; }
         }
 
-        public string WantToBeWorkerString
-        {
-            get { return WantToBeWorker ? "Есть" : "Нет"; }
-        }
+        public string WantToBeWorkerString => WantToBeWorker ? "Есть" : "Нет";
 
 
         public decimal Money
@@ -106,7 +100,7 @@ namespace Nursery.Model
                 if (Status != null && Status.StatusEnumValue == StatusEnum.adminisrator ||
                     Status != null && Status.StatusEnumValue == StatusEnum.superadmin)
                 {
-                    balanceOfOrganization = value;
+                    _balanceOfOrganization = value;
                 }
 
                 money = value;
@@ -131,21 +125,13 @@ namespace Nursery.Model
 
         public bool CheckSecretAnswer(string ans)
         {
-            if (VerifySHA256Hash(ans, this.SecretAnswer, this.Login))
-            {
-                return true;
-            }
-
-            return false;
+            return VerifySHA256Hash(ans, this.SecretAnswer, this.Login);
         }
 
 
         public void AddPet(Pet pet)
         {
-            if (myPets == null)
-            {
-                myPets = new ObservableCollection<Pet>();
-            }
+            myPets ??= new ObservableCollection<Pet>();
 
             myPets.Add(pet);
             Save();
@@ -155,7 +141,7 @@ namespace Nursery.Model
         {
             this.Password = GetSHA256(pass, salt);
         }
-        
+
         private static string GetSHA256(string openText, string salt)
         {
             HashAlgorithm algorithm = new SHA256Managed();
@@ -180,7 +166,7 @@ namespace Nursery.Model
             // string hashOfInput = GetSHA256(input, salt);
             // StringComparer comparer = StringComparer.OrdinalIgnoreCase;
             // return (comparer.Compare(hashOfInput, hash) == 0);
-            return true;
+            return true; //Уже не помню пароли от аккаунтов)
         }
 
 
@@ -200,15 +186,32 @@ namespace Nursery.Model
             return null;
         }
 
+        private static void TryToSetBalanceForUser(User user)
+        {
+            if (user.Status.StatusEnumValue == StatusEnum.adminisrator ||
+                user.Status.StatusEnumValue == StatusEnum.superadmin)
+            {
+                user.Money = User._balanceOfOrganization;
+            }
+        }
+
         public static void Save()
         {
-            userSaver.Save(balanceOfOrganization);
+            foreach (var user in User.Users)
+            {
+                TryToSetBalanceForUser(user);
+            }
+
+            userSaver.Save();
         }
 
         public static void Load()
         {
-            userSaver.Load(balanceOfOrganization);
-
+            userSaver.Load();
+            foreach (var user in User.Users)
+            {
+                TryToSetBalanceForUser(user);
+            }
         }
     }
 }

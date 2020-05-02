@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Nursery.Model.Savers
 {
-    public class LogXmlSaver : ILogSaver
+    public class LogXmlSaver : ISaver
     {
         private static readonly string path = "Data/Logs.xml";
 

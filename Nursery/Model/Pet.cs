@@ -10,7 +10,7 @@ namespace Nursery.Model
 {
     public class Pet
     {
-        private static IPetSaver petSaver = new PetXmlSaver();
+        private static ISaver petSaver = new PetXmlSaver();
 
         private static ObservableCollection<Pet> _pets;
 

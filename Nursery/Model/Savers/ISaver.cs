@@ -1,7 +1,6 @@
-﻿
-namespace Nursery.Model.Savers
+﻿namespace Nursery.Model.Savers
 {
-    public interface ILogSaver
+    public interface ISaver
     {
         public void Save();
         public void Load();

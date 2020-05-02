@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Nursery.Model.Savers
 {
-    public class PetXmlSaver : IPetSaver
+    public class PetXmlSaver : ISaver
     {
         private static readonly string path = "Data/RegisteredPets.xml";
 
